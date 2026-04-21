@@ -10,7 +10,11 @@ out vec3 ourColor; // Передаем цвет в фрагментный шей
 out vec2 TexCoord;
 
 // uniform одинакова для всех вершин в одном вызове отрисовки.
-uniform mat4 transform;
+// "святая троица" 3D-графики: Model, View, Projection (MVP)
+// вместо старой transform
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 void main() {
   // gl_Position — это встроенная переменная OpenGL.
@@ -18,9 +22,11 @@ void main() {
 
   // Мы превращаем vec3 (3 числа) в vec4 (4 числа), добавляя 1.0 в конце.
   // Четвертое число (W) нужно видеокарте для сложной математики и перспективы.
-  /* Важно: в шейдерах умножение идет СПРАВА НАЛЕВО.
-                       Сначала вектор превращается в vec4, потом на него накладывается матрица */
-  gl_Position = transform * vec4(aPos, 1.0);
-  ourColor = aColor; // Пробрасываем цвет
-  TexCoord = aTexCoord;
+  /* Важно!: в шейдерах умножение идет СПРАВА НАЛЕВО.
+                                  Сначала вектор превращается в vec4, потом на него накладывается матрица */
+  gl_Position = projection * view * model * vec4(aPos, 1.0);
+
+  // Пробрасываем данные дальше фрагментному шейдеру
+  ourColor = aColor; // цвет
+  TexCoord = aTexCoord; // текстурные координаты
 }

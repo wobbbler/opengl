@@ -3,6 +3,8 @@
 
 #include "glad/glad.h"
 #include <fstream>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -25,6 +27,12 @@ public:
   }
   void setFloat(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+  }
+
+  // чтобы забыть про glGetUniformLocation в основном коде
+  void setMat4(const std::string &name, const glm::mat4 &mat) const {
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE,
+                       glm::value_ptr(mat));
   }
 };
 
