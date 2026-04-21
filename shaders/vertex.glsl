@@ -4,8 +4,10 @@
 // vec3 — это X, Y и Z координаты, которые мы передали в VBO
 layout(location = 0) in vec3 aPos;
 layout(location = 1) in vec3 aColor; // Берем цвет из атрибута 1
+layout(location = 2) in vec2 aTexCoord;
 
 out vec3 ourColor; // Передаем цвет в фрагментный шейдер
+out vec2 TexCoord;
 
 void main() {
   // gl_Position — это встроенная переменная OpenGL.
@@ -15,4 +17,5 @@ void main() {
   // Четвертое число (W) нужно видеокарте для сложной математики и перспективы.
   gl_Position = vec4(aPos, 1.0);
   ourColor = aColor; // Пробрасываем цвет
+  TexCoord = aTexCoord;
 }

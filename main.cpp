@@ -1,15 +1,17 @@
 #include "include/Mesh.h"
 #include "include/Shader.h"
+#include "include/Texture.h"
 #include "include/Window.h"
 #include <cmath>
 #include <vector>
 
+// Структура данных: Позиция (x,y,z), Цвет (r,g,b), Текстурные координаты (s,t)
 std::vector<Vertex> vertices = {
-    // Позиция            // Цвет (RGB)
-    {0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f},   // 0: Верх-право (Красный)
-    {0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f},  // 1: Низ-право (Зеленый)
-    {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f}, // 2: Низ-лево (Синий)
-    {-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f}   // 3: Верх-лево (Желтый)
+    // Позиции            // Цвета             // Текстурные координаты
+    {0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f},   // Верх-право
+    {0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f},  // Низ-право
+    {-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // Низ-лево
+    {-0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f}   // Верх-лево
 };
 
 std::vector<unsigned int> indices = {
@@ -18,47 +20,42 @@ std::vector<unsigned int> indices = {
 };
 
 int main() {
-  // Создаем окно
-  Window myWindow(1920, 1080, "Window");
+  // Инициализация окна
+  Window myWindow(1920, 1080, "OpenGL Engine");
 
-  // Создаем шейдеры, указывая пути к файлам относительно main.cpp
+  // Загрузка ресурсов (Шейдеры, Меш, Текстура)
+  // Делаем это ОДИН РАЗ до начала цикла
   Shader ourShader("shaders/vertex.glsl", "shaders/fragment.glsl");
-
-  // Создаем меш
   Mesh ourMesh(vertices, indices);
+  Texture ourTexture("assets/brick.jpg");
 
   // Главный цикл
-  // Проверяем, не нажат ли "крестик"
   while (!myWindow.shouldClose()) {
+    // --- ЛОГИКА И ВВОД ---
+    myWindow.pollEvents();
 
-    // Логика и ввод
-    myWindow.pollEvents(); // Проверяем нажатия клавиш, движение мыши и т.д.
-
-    // Рендеринг
-    // Устанавливаем цвет очистки (RGBA)
-    /* OpenGL принимает значения только от 0.0 до 1.0. Поэтому делим наши
-       значения на 255 для нормализац */
-    glClearColor(31.0f / 255.0f, 24.0f / 255.0f, 62.0f / 255.0f, 1);
-
-    // Очищаем буфер цвета текущим цветом
+    // --- РЕНДЕРИНГ ---
+    // Очистка экрана
+    glClearColor(31.0f / 255.0f, 24.0f / 255.0f, 62.0f / 255.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    ourShader.use(); // Включаем шейдеры (обязательно ДО установки uniform)
+    // Активация шейдера
+    ourShader.use();
 
-    // Считаем время и яркость (будет плавно ходить от 0 до 1)
-    float timeValue = glfwGetTime();
-    float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+    // Обновление Uniform-переменных (анимация яркости)
+    float timeValue = (float)glfwGetTime();
+    float brightnessValue = (sin(timeValue) / 2.0f) + 0.5f;
+    ourShader.setFloat("brightness", brightnessValue);
 
-    // Находим "вход" в шейдере по имени и пихаем туда значение
-    ourShader.setFloat("brightness", greenValue);
+    // Сначала активируем текстуру
+    ourTexture.use();
 
-    ourMesh.draw(); // Рисуем меш
+    // Теперь рисуем меш
+    ourMesh.draw();
 
     // Смена буферов
     myWindow.swapBuffers();
   }
 
-  // Когда цикл закончился, объект myWindow выйдет из области видимости
-  // и вызовется деструктор ~Window(), который всё почистит.
   return 0;
 }

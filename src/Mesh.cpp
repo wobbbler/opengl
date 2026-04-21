@@ -32,6 +32,7 @@ void Mesh::setupMesh(const std::vector<Vertex> &vertices,
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
                &indices[0], GL_STATIC_DRAW);
 
+  /* --- АТРИБУТЫ --- */
   // Атрибут 1 - позиция
   // Указываем OpenGL, как читать наши данные из структуры Vertex
   /*
@@ -50,7 +51,12 @@ void Mesh::setupMesh(const std::vector<Vertex> &vertices,
                         (void *)(3 * sizeof(float)));
   glEnableVertexAttribArray(1);
 
-  // Отвязываем VAO, чтобы случайно не изменить его настройки где-то еще
+  // Атрибут 3 - текстура
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                        (void *)(6 * sizeof(float)));
+  glEnableVertexAttribArray(2);
+
+  // Отвязываем VAO, чтобы случайно не изменить его
   glBindVertexArray(0);
 }
 

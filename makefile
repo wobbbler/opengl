@@ -1,6 +1,6 @@
 # Настройки компилятора
 CXX = g++
-CXXFLAGS = -I./include -std=c++23 -Wall
+CXXFLAGS = -I./include -std=c++17 -Wall
 # Библиотеки: glfw, GL (графика), dl (для работы динамических библиотек в Linux)
 LDFLAGS = -lglfw -lGL -ldl
 

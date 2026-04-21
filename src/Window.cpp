@@ -10,14 +10,15 @@ Window::Window(int width, int height, const char *title) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  m_window = glfwCreateWindow(width, height, title, NULL, NULL);
-  if (!m_window) {
+  // Создание окна с помощю GLFW
+  window = glfwCreateWindow(width, height, title, NULL, NULL);
+  if (!window) {
     std::cerr << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
   }
 
   // Делаем контекст этого окна текущим
-  glfwMakeContextCurrent(m_window);
+  glfwMakeContextCurrent(window);
 
   // Загрузка GLAD
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -28,13 +29,13 @@ Window::Window(int width, int height, const char *title) {
   glViewport(0, 0, width, height);
 
   // Регистрируем колбэк на изменение размера окна
-  glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
 Window::~Window() { glfwTerminate(); }
 
-bool Window::shouldClose() const { return glfwWindowShouldClose(m_window); }
-void Window::swapBuffers() const { glfwSwapBuffers(m_window); }
+bool Window::shouldClose() const { return glfwWindowShouldClose(window); }
+void Window::swapBuffers() const { glfwSwapBuffers(window); }
 void Window::pollEvents() const { glfwPollEvents(); }
 
 void Window::framebuffer_size_callback(GLFWwindow *window, int width,

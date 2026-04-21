@@ -5,10 +5,13 @@ out vec4 FragColor;
 in vec3 ourColor; // Получаем цвет из вершинного шейдера
 uniform float brightness;
 
+uniform sampler2D ourTexture; // "Ссылка" на нашу текстуру
+in vec2 TexCoord; // Данные из вертексного шейдера
+
 void main() {
 
   // Назначаем цвет каждому пикселю, который попал внутрь нашего объекта.
   // vec4 — это 4 значения: Красный, Зеленый, Синий и Альфа (прозрачность).
   // 1.0f в конце — полная непрозрачность.
-  FragColor = vec4(ourColor * brightness, 1.0f); // Умножаем исходный цвет на яркость (от 0.0 до 1.0)
+  FragColor = texture(ourTexture, TexCoord) * brightness;
 }
