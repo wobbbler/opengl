@@ -23,7 +23,7 @@ constexpr const char *defaultTexturePath = "assets/brick.jpg";
 namespace Render {
 // Настройки внешнего вида кадра и начального наклона объекта.
 constexpr glm::vec3 clearColor =
-    glm::vec3(31.0f / 255.0f, 24.0f / 255.0f, 62.0f / 255.0f);
+    glm::vec3(0.2f / 255.0f, 0.2f / 255.0f, 0.2f / 255.0f);
 
 constexpr float modelTiltX = -28.0f;
 constexpr float modelTiltY = 32.0f;

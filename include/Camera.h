@@ -21,6 +21,8 @@ public:
   // Возвращает матрицу перспективной проекции.
   glm::mat4 getProjectionMatrix(float aspectRatio) const;
 
+  glm::vec3 getPosition() const { return position; }
+
 private:
   // GLFW callback статический, поэтому храним активную камеру отдельно.
   static Camera *activeCamera;

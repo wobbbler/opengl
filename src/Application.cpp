@@ -52,14 +52,20 @@ void Application::render() {
 
   // --- 1. РИСУЕМ ОСНОВНОЙ КУБ ---
   shader.use();
-  // Передаем Uniform-переменные для цвета из Config
+  
+  // Передаем Uniform-переменные для освещения
   shader.setVec3("objectColor", Config::Lighting::objectColor);
   shader.setVec3("lightColor", Config::Lighting::lightColor);
+  shader.setVec3("lightPos", Config::Lighting::lightPos);
+  shader.setVec3("viewPos", camera.getPosition());
 
   shader.setMat4("view", view);
   shader.setMat4("projection", projection);
 
   glm::mat4 model = glm::mat4(1.0f);
+  // Можем добавить небольшое вращение для наглядности
+  model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
+  
   cube.setModelMatrix(model);
   cube.draw(shader);
 
@@ -68,7 +74,7 @@ void Application::render() {
   lampShader.setMat4("view", view);
   lampShader.setMat4("projection", projection);
 
-  // Матрица модели для лампы: используем позицию из Config
+  // Матрица модели для лампы
   glm::mat4 lampModel = glm::mat4(1.0f);
   lampModel = glm::translate(lampModel, Config::Lighting::lightPos);
   lampModel = glm::scale(lampModel, glm::vec3(0.2f));
