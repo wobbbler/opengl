@@ -28,6 +28,10 @@ private:
   Shader shader;
   Scene cube;
 
+  // Шейдеры
+  Shader lampShader;
+  Scene lightSource;
+
   // Обновление логики кадра.
   void update();
   // Отрисовка кадра.

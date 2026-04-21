@@ -1,5 +1,13 @@
 #include "../include/Shader.h"
 
+void Shader::setVec3(const std::string &name, float r, float g, float b) const {
+  glUniform3f(glGetUniformLocation(ID, name.c_str()), r, g, b);
+}
+
+void Shader::setVec3(const std::string &name, const glm::vec3 &value) const {
+  glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
+}
+
 Shader::Shader(const char *vertexPath, const char *fragmentPath) {
   // Переменные под текст шейдеров
   std::string vertexCode;

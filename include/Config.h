@@ -16,7 +16,7 @@ constexpr const char *title = "OpenGL Engine";
 namespace Assets {
 // Пути к ресурсам проекта.
 constexpr const char *vertexShaderPath = "shaders/vertex.glsl";
-constexpr const char *fragmentShaderPath = "shaders/fragment.glsl";
+constexpr const char *fragmentShaderPath = "shaders/lighting.frag";
 constexpr const char *defaultTexturePath = "assets/brick.jpg";
 } // namespace Assets
 
@@ -28,6 +28,12 @@ constexpr glm::vec3 clearColor =
 constexpr float modelTiltX = -28.0f;
 constexpr float modelTiltY = 32.0f;
 } // namespace Render
+
+namespace Lighting {
+const glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+const glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+const glm::vec3 objectColor(0.0f, 0.808f, 0.808f); // Бирюзовый (Turquoise)
+} // namespace Lighting
 
 } // namespace Config
 
