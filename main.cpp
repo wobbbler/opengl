@@ -98,11 +98,6 @@ int main() {
     ourShader.setMat4("view", view);
     ourShader.setMat4("projection", projection);
 
-    // // Обновление Uniform-переменных (анимация яркости)
-    // float timeValue = (float)glfwGetTime();
-    // float brightnessValue = (sin(timeValue) / 2.0f) + 0.5f;
-    // ourShader.setFloat("brightness", brightnessValue);
-
     // Рисуем наш меш
     ourMesh.draw();
 

@@ -3,7 +3,6 @@
 // Итоговый цвет пикселя (RGBA)
 out vec4 FragColor;
 in vec3 ourColor; // Получаем цвет из вершинного шейдера
-// uniform float brightness;
 
 uniform sampler2D ourTexture; // "Ссылка" на нашу текстуру
 in vec2 TexCoord; // Данные из вертексного шейдера
@@ -14,5 +13,4 @@ void main() {
   // vec4 — это 4 значения: Красный, Зеленый, Синий и Альфа (прозрачность).
   // 1.0f в конце — полная непрозрачность.
   FragColor = texture(ourTexture, TexCoord);
-  // FragColor = texture(ourTexture, TexCoord) * brightness;
 }
