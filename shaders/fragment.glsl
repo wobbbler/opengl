@@ -13,5 +13,5 @@ void main() {
   // Назначаем цвет каждому пикселю, который попал внутрь нашего объекта.
   // vec4 — это 4 значения: Красный, Зеленый, Синий и Альфа (прозрачность).
   // 1.0f в конце — полная непрозрачность.
-  FragColor = texture(ourTexture, TexCoord) * brightness;
+  FragColor = texture(ourTexture, TexCoord);
 }

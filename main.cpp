@@ -42,10 +42,10 @@ int main() {
     // Активация шейдера
     ourShader.use();
 
-    // Обновление Uniform-переменных (анимация яркости)
-    float timeValue = (float)glfwGetTime();
-    float brightnessValue = (sin(timeValue) / 2.0f) + 0.5f;
-    ourShader.setFloat("brightness", brightnessValue);
+    // // Обновление Uniform-переменных (анимация яркости)
+    // float timeValue = (float)glfwGetTime();
+    // float brightnessValue = (sin(timeValue) / 2.0f) + 0.5f;
+    // ourShader.setFloat("brightness", brightnessValue);
 
     // Сначала активируем текстуру
     ourTexture.use();
