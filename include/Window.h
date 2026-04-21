@@ -19,6 +19,8 @@ public:
   // Проверяет события: нажатия клавиш, движение мыши, изменение размера окна
   void pollEvents() const;
 
+  GLFWwindow *getNativeWindow() { return window; }
+
 private:
   // Указатель на само окно в памяти GLFW
   GLFWwindow *window;
