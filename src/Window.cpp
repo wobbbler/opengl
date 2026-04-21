@@ -1,7 +1,6 @@
 #include "../include/Window.h"
 
 Window::Window(int width, int height, const char *title) {
-  // 1. Инициализация GLFW
   if (!glfwInit()) {
     std::cerr << "Failed to initialize GLFW" << std::endl;
   }
@@ -11,7 +10,6 @@ Window::Window(int width, int height, const char *title) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  // 2. Создание окна
   m_window = glfwCreateWindow(width, height, title, NULL, NULL);
   if (!m_window) {
     std::cerr << "Failed to create GLFW window" << std::endl;
@@ -21,7 +19,7 @@ Window::Window(int width, int height, const char *title) {
   // Делаем контекст этого окна текущим
   glfwMakeContextCurrent(m_window);
 
-  // 3. Загрузка GLAD
+  // Загрузка GLAD
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     std::cerr << "Failed to initialize GLAD" << std::endl;
   }

@@ -8,14 +8,23 @@
 class Window {
 public:
   Window(int width, int height, const char *title);
+
   ~Window();
 
   bool shouldClose() const;
+
+  // Выводит то, что мы нарисовали, на экран (меняет задний буфер на передний)
   void swapBuffers() const;
+
+  // Проверяет события: нажатия клавиш, движение мыши, изменение размера окна
   void pollEvents() const;
 
 private:
+  // Указатель на само окно в памяти GLFW
   GLFWwindow *m_window;
+
+  /* Cрабатывает, когда ты растягиваешь окно мышкой,
+     чтобы картинка подстраивалась под новый размер */
   static void framebuffer_size_callback(GLFWwindow *window, int width,
                                         int height);
 };
